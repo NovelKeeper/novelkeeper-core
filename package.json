@@ -14,7 +14,8 @@
     "start:dev": "npx nodemon",
     "format": "prettier --write .",
     "clean": "rimraf dist",
-    "build": "npm run clean && npm run format && tsc"
+    "build": "npm run clean && npm run format && tsc",
+    "prepare": "npm run build"
   },
   "license": "ISC",
   "devDependencies": {
