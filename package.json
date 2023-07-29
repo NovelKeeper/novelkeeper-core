@@ -1,13 +1,13 @@
 {
   "name": "novelkeeper-model-node",
-  "version": "1.0.0+1",
+  "version": "1.0.0+2",
   "description": "",
   "author": "John Ramberger",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NovelKeeper/novelkeeper-model-node.git"
   },
-  "main": "dist/index.d.ts",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
