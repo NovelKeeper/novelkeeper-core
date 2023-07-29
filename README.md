@@ -1,0 +1,2 @@
+# novelkeeper-model-node
+ 
