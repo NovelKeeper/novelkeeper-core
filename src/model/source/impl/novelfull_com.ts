@@ -74,7 +74,7 @@ export class NovelFullCom extends NKSource {
     const chapterA = root.querySelectorAll('.list-chapter > li > a');
 
     const chapters = chapterA.map((a) => {
-      const url = _url.noPath + (a.getAttribute('href') ?? '');
+      const url = _url.noPath() + (a.getAttribute('href') ?? '');
       const title = a.text.trim();
       return new ChapterMetadata(url, title);
     });
