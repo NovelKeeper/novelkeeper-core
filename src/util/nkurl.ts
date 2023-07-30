@@ -1,6 +1,15 @@
 export class NKUrl {
-  _urlStr: string;
-  _url: URL;
+  protected _urlStr: string;
+  protected _url: URL;
+
+  urlStr = () => {
+    return this._urlStr;
+  };
+
+  url = () => {
+    return this._url;
+  };
+
   constructor(url: string) {
     this._urlStr = url;
     this._url = new URL(url);
