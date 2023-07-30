@@ -39,6 +39,14 @@ export class NKUrl {
   };
 
   /**
+   * The protocol property of the URL interface is a string indicating the protocol scheme of the URL, including the final ':'.
+   * @example https: or http:
+   */
+  protocol = () => {
+    return this._url.protocol;
+  };
+
+  /**
    * Whether the protocol is https or not
    * @example https:// == true
    */
@@ -60,5 +68,15 @@ export class NKUrl {
    */
   hash = () => {
     return this._url.hash;
+  };
+
+  /**
+   * The url without the pathname
+   * @returns protocol + '//' + host
+   * @example https://novelfull.com
+   * @example http://www.wuxiaworld.com
+   */
+  noPath = () => {
+    return this._url.protocol + '//' + this._url.host;
   };
 }

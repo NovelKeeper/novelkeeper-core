@@ -1,5 +1,5 @@
 import { NKHash } from '../../util/crypto';
-import { NKUrl } from '../../util/url';
+import { NKUrl } from '../../util/nkurl';
 
 export class NovelMetadata {
   // Required

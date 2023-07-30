@@ -1,5 +1,5 @@
 // Util
-export { NKUrl } from './util/url';
+export { NKUrl } from './util/nkurl';
 
 // Novel
 export { NovelMetadata } from './model/novel/novel_metadata';

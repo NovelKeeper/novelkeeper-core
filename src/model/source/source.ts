@@ -1,4 +1,4 @@
-import { NKUrl } from '../../util/url';
+import { NKUrl } from '../../util/nkurl';
 import { NovelMetadata } from '../novel/novel_metadata';
 
 export abstract class NKSource {

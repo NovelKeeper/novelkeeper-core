@@ -3,7 +3,7 @@ import { parse } from 'node-html-parser';
 import { NotImplementedException } from '../../../exception/exception';
 import { NovelMetadata } from '../../novel/novel_metadata';
 import { NKSource } from '../source';
-import { NKUrl } from '../../../util/url';
+import { NKUrl } from '../../../util/nkurl';
 
 export class NovelFullCom extends NKSource {
   id = 1;
@@ -35,7 +35,7 @@ export class NovelFullCom extends NKSource {
       .map((a) => a.text.trim());
 
     const coverUrl =
-      _url.host() +
+      _url.noPath() +
         root.querySelector('.book > img:nth-child(1)')?.getAttribute('src') ??
       '';
 
