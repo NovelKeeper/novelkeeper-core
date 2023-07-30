@@ -100,10 +100,19 @@ export class NovelFullCom extends NKSource {
   extractChapterContent(_url: NKUrl, _html: string): ChapterContent {
     const root = parse(_html);
 
-    const content =
-      root.querySelector('#chapter-content')?.removeAttribute('style')
-        ?.innerHTML ?? '';
+    const content = root
+      .querySelector('#chapter-content')
+      ?.removeAttribute('style')
+      .removeAttribute('class');
 
-    return new ChapterContent(_url, content);
+    if (content !== undefined) {
+      content.querySelectorAll('*').forEach((p) => {
+        p.set_content(p.text.trim())
+          .removeAttribute('style')
+          .removeAttribute('class');
+      });
+    }
+
+    return new ChapterContent(_url, content?.innerHTML ?? '');
   }
 }
