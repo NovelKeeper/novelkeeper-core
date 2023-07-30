@@ -1,3 +1,5 @@
+import { NovelMetadata } from '../novel/novel_metadata';
+
 export abstract class NKSource {
   /**
    * The id of the source
@@ -7,7 +9,7 @@ export abstract class NKSource {
    * The name of the source
    */
   abstract name: string;
-  
+
   /**
    * The hostname of the source
    * @example https://novelfull.com
@@ -19,6 +21,13 @@ export abstract class NKSource {
    * Whether the chapter list for the source is paginated
    */
   abstract chapterListPaginated: boolean;
+
+  /**
+   * Extract the novel metadata from the novel page html
+   * @param _html The html of the novel page
+   * @returns A promise that resolves to a NovelMetadata object
+   */
+  abstract extractNovelMetadata(_html: string): Promise<NovelMetadata>;
 
   /**
    * Extract the chapter urls from the novel page html
