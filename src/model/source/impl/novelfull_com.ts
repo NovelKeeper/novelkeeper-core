@@ -97,7 +97,7 @@ export class NovelFullCom extends NKSource {
 
     const pageUrls = [];
     for (let i = 2; i <= lastPage; i++) {
-      pageUrls.push(new NKUrl(_url.noParams + `?page=${i}`));
+      pageUrls.push(new NKUrl(_url.noParams() + `?page=${i}`));
     }
     return pageUrls;
   }
