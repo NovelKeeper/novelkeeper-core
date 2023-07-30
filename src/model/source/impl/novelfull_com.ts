@@ -113,6 +113,9 @@ export class NovelFullCom extends NKSource {
       NKConfig_core.blacklistTags.forEach((tag) => {
         content.querySelectorAll(tag).forEach((p) => p.remove());
       });
+
+      // remove tags with class 'ads'
+      content.querySelectorAll('.ads').forEach((p) => p.remove());
     }
 
     return new ChapterContent(_url, content?.innerHTML ?? '');
