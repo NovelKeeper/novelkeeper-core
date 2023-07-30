@@ -1,7 +1,7 @@
 import { parse } from 'node-html-parser';
 
 import { NovelMetadata } from '../../novel/novel_metadata';
-import { NKSource } from '../source';
+import { ChapterListPaginationType, NKSource } from '../source';
 import { NKUrl } from '../../../util/nkurl';
 import { ChapterMetadata } from '../../novel/chapter_metadata';
 
@@ -10,7 +10,8 @@ export class NovelFullCom extends NKSource {
   name = 'NovelFull';
   hostname = 'novelfull.com';
   chapterListPaginated = true;
-  private readonly chaptersPerPage = 50;
+  chapterListPaginationType = ChapterListPaginationType.PAGE;
+  chaptersPerPage = 50;
 
   async extractNovelMetadata(
     _url: NKUrl,
@@ -80,5 +81,24 @@ export class NovelFullCom extends NKSource {
     });
 
     return chapters;
+  }
+
+  async getChapterListPageUrls(_url: NKUrl, _html: string): Promise<NKUrl[]> {
+    const root = parse(_html);
+
+    const lastPage = parseInt(
+      root.querySelector('.last > a:nth-child(1)')?.getAttribute('data-page') ??
+        '0'
+    );
+
+    if (lastPage === 0) {
+      return [];
+    }
+
+    const pageUrls = [];
+    for (let i = 2; i <= lastPage; i++) {
+      pageUrls.push(new NKUrl(_url.noParams + `?page=${i}`));
+    }
+    return pageUrls;
   }
 }

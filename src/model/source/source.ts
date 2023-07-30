@@ -25,6 +25,18 @@ export abstract class NKSource {
   abstract chapterListPaginated: boolean;
 
   /**
+   * The type of pagination for the chapter list
+   * @example 'page' - https://novelfull.com/against-the-gods.html?page=1
+   * @example 'offset' - https://www.wuxiaworld.com/novel/against-the-gods/atg-chapter-1
+   */
+  abstract chapterListPaginationType: ChapterListPaginationType;
+
+  /**
+   * The number of chapters per page
+   */
+  abstract chaptersPerPage: number;
+
+  /**
    * Extract the novel metadata from the novel page html
    * @param _url The url of the novel page
    * @param _html The html of the novel page
@@ -45,4 +57,17 @@ export abstract class NKSource {
     _url: NKUrl,
     _html: string
   ): Promise<ChapterMetadata[]>;
+
+  /**
+   * Extract the list of pagination urls from the novel page html
+   * @param _url The url of the novel page
+   * @param html The html of the novel page
+   */
+  abstract getChapterListPageUrls(_url: NKUrl, _html: string): Promise<NKUrl[]>;
+}
+
+export enum ChapterListPaginationType {
+  PAGE = 'page',
+  OFFSET = 'offset',
+  NONE = 'none',
 }

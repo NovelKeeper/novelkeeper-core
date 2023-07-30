@@ -79,4 +79,14 @@ export class NKUrl {
   noPath = () => {
     return this._url.protocol + '//' + this._url.host;
   };
+
+  /**
+   * The url without the search params
+   * @returns protocol + '//' + host + pathname
+   * @example https://novelfull.com/path/to/file
+   * @example http://www.wuxiaworld.com/path/to/file
+   */
+  noParams = () => {
+    return this._url.protocol + '//' + this._url.host + this._url.pathname;
+  };
 }
