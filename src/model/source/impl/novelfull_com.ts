@@ -5,6 +5,7 @@ import { ChapterListPaginationType, NKSource } from '../source';
 import { NKUrl } from '../../../util/nkurl';
 import { ChapterMetadata } from '../../novel/chapter_metadata';
 import { ChapterContent } from '../../novel/chapter_content';
+import { NKConfig_core } from '../../../nk.config';
 
 export class NovelFullCom extends NKSource {
   id = 1;
@@ -100,16 +101,17 @@ export class NovelFullCom extends NKSource {
   extractChapterContent(_url: NKUrl, _html: string): ChapterContent {
     const root = parse(_html);
 
-    const content = root
-      .querySelector('#chapter-content')
-      ?.removeAttribute('style')
-      .removeAttribute('class');
+    const content = root.querySelector('#chapter-content');
 
-    if (content !== undefined) {
+    if (content !== null) {
       content.querySelectorAll('*').forEach((p) => {
         p.set_content(p.text.trim())
           .removeAttribute('style')
           .removeAttribute('class');
+      });
+
+      NKConfig_core.blacklistTags.forEach((tag) => {
+        content.querySelectorAll(tag).forEach((p) => p.remove());
       });
     }
 
