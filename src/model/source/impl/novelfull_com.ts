@@ -1,15 +1,16 @@
 import { parse } from 'node-html-parser';
 
-import { NotImplementedException } from '../../../exception/exception';
 import { NovelMetadata } from '../../novel/novel_metadata';
 import { NKSource } from '../source';
 import { NKUrl } from '../../../util/nkurl';
+import { ChapterMetadata } from '../../novel/chapter_metadata';
 
 export class NovelFullCom extends NKSource {
   id = 1;
   name = 'NovelFull';
   hostname = 'novelfull.com';
   chapterListPaginated = true;
+  private readonly chaptersPerPage = 50;
 
   async extractNovelMetadata(
     _url: NKUrl,
@@ -64,8 +65,20 @@ export class NovelFullCom extends NKSource {
     );
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async extractChapterUrls(_html: string): Promise<string[]> {
-    throw new NotImplementedException('NovelFullCom.extractChapterUrls()');
+  async extractChapterUrls(
+    _url: NKUrl,
+    _html: string
+  ): Promise<ChapterMetadata[]> {
+    const root = parse(_html);
+
+    const chapterA = root.querySelectorAll('.list-chapter > li > a');
+
+    const chapters = chapterA.map((a) => {
+      const url = _url.noPath + (a.getAttribute('href') ?? '');
+      const title = a.text.trim();
+      return new ChapterMetadata(url, title);
+    });
+
+    return chapters;
   }
 }

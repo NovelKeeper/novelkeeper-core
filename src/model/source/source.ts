@@ -1,4 +1,5 @@
 import { NKUrl } from '../../util/nkurl';
+import { ChapterMetadata } from '../novel/chapter_metadata';
 import { NovelMetadata } from '../novel/novel_metadata';
 
 export abstract class NKSource {
@@ -36,8 +37,12 @@ export abstract class NKSource {
 
   /**
    * Extract the chapter urls from the novel page html
+   * @param _url The url of the novel page
    * @param html The html of the novel page
-   * @returns A promise that resolves to an array of chapter urls
+   * @returns A promise that resolves to an array of [ChapterMetadata]
    */
-  abstract extractChapterUrls(_html: string): Promise<string[]>;
+  abstract extractChapterUrls(
+    _url: NKUrl,
+    _html: string
+  ): Promise<ChapterMetadata[]>;
 }
