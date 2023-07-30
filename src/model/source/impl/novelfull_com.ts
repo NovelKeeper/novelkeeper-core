@@ -114,8 +114,12 @@ export class NovelFullCom extends NKSource {
         content.querySelectorAll(tag).forEach((p) => p.remove());
       });
 
+      console.log(content);
+
       // remove tags with class 'ads'
       content.querySelectorAll('.ads').forEach((p) => p.remove());
+
+      console.log(content);
     }
 
     return new ChapterContent(_url, content?.innerHTML ?? '');

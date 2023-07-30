@@ -1,11 +1,11 @@
 {
   "name": "novelkeeper-core",
-  "version": "1.0.20",
+  "version": "1.0.23",
   "description": "",
   "author": "John Ramberger",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NovelKeeper/novelkeeper-model-node.git"
+    "url": "git+https://github.com/NovelKeeper/novelkeeper-core.git"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
