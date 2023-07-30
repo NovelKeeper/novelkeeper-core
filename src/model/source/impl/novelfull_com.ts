@@ -65,15 +65,19 @@ export class NovelFullCom extends NKSource {
     );
   }
 
-  extractChapterUrls(_url: NKUrl, _html: string): ChapterMetadata[] {
+  extractChapterUrls(
+    _url: NKUrl,
+    _html: string,
+    _page: number
+  ): ChapterMetadata[] {
     const root = parse(_html);
 
     const chapterA = root.querySelectorAll('.list-chapter > li > a');
 
-    const chapters = chapterA.map((a) => {
+    const chapters = chapterA.map((a, i) => {
       const url = new NKUrl(_url.noPath() + (a.getAttribute('href') ?? ''));
       const title = a.text.trim();
-      return new ChapterMetadata(url, title);
+      return new ChapterMetadata(url, title, _page * this.chaptersPerPage + i);
     });
 
     return chapters;
@@ -104,22 +108,39 @@ export class NovelFullCom extends NKSource {
     const content = root.querySelector('#chapter-content');
 
     if (content !== null) {
-      content.querySelectorAll('*').forEach((p) => {
-        p.set_content(p.text.trim())
-          .removeAttribute('style')
-          .removeAttribute('class');
-      });
-
       NKConfig_core.blacklistTags.forEach((tag) => {
         content.querySelectorAll(tag).forEach((p) => p.remove());
       });
 
-      console.log(content);
-
       // remove tags with class 'ads'
-      content.querySelectorAll('.ads').forEach((p) => p.remove());
+      content.querySelectorAll('.ads').forEach((p) => {
+        p.remove();
+      });
 
-      console.log(content);
+      // remove blacklist text
+      content.querySelectorAll('*').forEach((p) => {
+        const pClean = p.text.trim().replaceAll(' ', '');
+        NKConfig_core.blacklistText.forEach((text) => {
+          if (pClean == text.trim()) {
+            p.remove();
+          }
+        });
+      });
+
+      // remove empty tags
+      content.querySelectorAll('*').forEach((p) => {
+        if (p.text.trim() === '') {
+          p.remove();
+        }
+      });
+
+      content.querySelectorAll('*').forEach((p) => {
+        // remove blacklisted attributes
+        p.set_content(p.text.trim());
+        NKConfig_core.blacklistAttributes.forEach((attr) => {
+          p.removeAttribute(attr);
+        });
+      });
     }
 
     return new ChapterContent(_url, content?.innerHTML ?? '');

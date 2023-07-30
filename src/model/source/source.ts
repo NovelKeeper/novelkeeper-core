@@ -41,7 +41,7 @@ export abstract class NKSource {
    * Extract the novel metadata from the novel page html
    * @param _url The url of the novel page
    * @param _html The html of the novel page
-   * @returns A promise that resolves to a NovelMetadata object
+   * @returns a NovelMetadata object
    */
   abstract extractNovelMetadata(_url: NKUrl, _html: string): NovelMetadata;
 
@@ -49,14 +49,20 @@ export abstract class NKSource {
    * Extract the chapter urls from the novel page html
    * @param _url The url of the novel page
    * @param _html The html of the novel page
-   * @returns A promise that resolves to an array of [ChapterMetadata]
+   * @param _page The page number of the chapter list
+   * @returns an array of [ChapterMetadata]
    */
-  abstract extractChapterUrls(_url: NKUrl, _html: string): ChapterMetadata[];
+  abstract extractChapterUrls(
+    _url: NKUrl,
+    _html: string,
+    _page: number
+  ): ChapterMetadata[];
 
   /**
    * Extract the list of pagination urls from the novel page html
    * @param _url The url of the novel page
    * @param _html The html of the novel page
+   * @returns an array of [NKUrl]
    */
   abstract getChapterListPageUrls(_url: NKUrl, _html: string): NKUrl[];
 
@@ -64,6 +70,7 @@ export abstract class NKSource {
    * Extract the chapter metadata from the chapter page html
    * @param _url The url of the chapter page
    * @param _html The html of the chapter page
+   * @returns a [ChapterContent] object
    */
   abstract extractChapterContent(_url: NKUrl, _html: string): ChapterContent;
 }
