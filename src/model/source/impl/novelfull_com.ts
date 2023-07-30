@@ -33,9 +33,8 @@ export class NovelFullCom extends NKSource {
       .querySelectorAll('.info > div:nth-child(3) > a')
       .map((a) => a.text.trim());
 
-    const coverUrl = new NKUrl(
-      root.querySelector('.book > img:nth-child(1)')?.getAttribute('src') ?? ''
-    );
+    const coverUrl =
+      root.querySelector('.book > img:nth-child(1)')?.getAttribute('src') ?? '';
 
     // Alternate titles <>Alternative names: <h3></h3> title1, title2</>
     const altTitles =

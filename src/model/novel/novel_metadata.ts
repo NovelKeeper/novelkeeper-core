@@ -9,7 +9,7 @@ export class NovelMetadata {
   authors: string[];
   description: string[];
   genres: string[];
-  coverUrl: NKUrl;
+  coverUrl: string;
 
   // Optional
   altTitles?: string[];
@@ -21,7 +21,7 @@ export class NovelMetadata {
     authors: string[],
     description: string[],
     genres: string[],
-    coverUrl: NKUrl,
+    coverUrl: string,
     status?: string,
     altTitles?: string[]
   ) {
