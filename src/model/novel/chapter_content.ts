@@ -1,5 +1,5 @@
 import { NKHash } from '../../util/crypto';
-import { NKUrl } from '../../util/nkurl';
+import { NKUrl } from '../../util/nk_url';
 
 export class ChapterContent {
   /**

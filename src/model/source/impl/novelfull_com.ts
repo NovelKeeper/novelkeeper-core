@@ -2,7 +2,7 @@ import { parse } from 'node-html-parser';
 
 import { NovelMetadata } from '../../novel/novel_metadata';
 import { ChapterListPaginationType, NKSource } from '../source';
-import { NKUrl } from '../../../util/nkurl';
+import { NKUrl } from '../../../util/nk_url';
 import { ChapterMetadata } from '../../novel/chapter_metadata';
 import { ChapterContent } from '../../novel/chapter_content';
 import { NKConfig_core } from '../../../nk.config';

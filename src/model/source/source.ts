@@ -1,4 +1,4 @@
-import { NKUrl } from '../../util/nkurl';
+import { NKUrl } from '../../util/nk_url';
 import { ChapterContent } from '../novel/chapter_content';
 import { ChapterMetadata } from '../novel/chapter_metadata';
 import { NovelMetadata } from '../novel/novel_metadata';
