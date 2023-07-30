@@ -1,4 +1,5 @@
 import { NKUrl } from '../../util/nkurl';
+import { ChapterContent } from '../novel/chapter_content';
 import { ChapterMetadata } from '../novel/chapter_metadata';
 import { NovelMetadata } from '../novel/novel_metadata';
 
@@ -27,7 +28,7 @@ export abstract class NKSource {
   /**
    * The type of pagination for the chapter list
    * @example 'page' - https://novelfull.com/against-the-gods.html?page=1
-   * @example 'offset' - https://www.wuxiaworld.com/novel/against-the-gods/atg-chapter-1
+   * @example 'cursor' - https://www.wuxiaworld.com/novel/against-the-gods/atg-chapter-1
    */
   abstract chapterListPaginationType: ChapterListPaginationType;
 
@@ -42,32 +43,33 @@ export abstract class NKSource {
    * @param _html The html of the novel page
    * @returns A promise that resolves to a NovelMetadata object
    */
-  abstract extractNovelMetadata(
-    _url: NKUrl,
-    _html: string
-  ): Promise<NovelMetadata>;
+  abstract extractNovelMetadata(_url: NKUrl, _html: string): NovelMetadata;
 
   /**
    * Extract the chapter urls from the novel page html
    * @param _url The url of the novel page
-   * @param html The html of the novel page
+   * @param _html The html of the novel page
    * @returns A promise that resolves to an array of [ChapterMetadata]
    */
-  abstract extractChapterUrls(
-    _url: NKUrl,
-    _html: string
-  ): Promise<ChapterMetadata[]>;
+  abstract extractChapterUrls(_url: NKUrl, _html: string): ChapterMetadata[];
 
   /**
    * Extract the list of pagination urls from the novel page html
    * @param _url The url of the novel page
-   * @param html The html of the novel page
+   * @param _html The html of the novel page
    */
-  abstract getChapterListPageUrls(_url: NKUrl, _html: string): Promise<NKUrl[]>;
+  abstract getChapterListPageUrls(_url: NKUrl, _html: string): NKUrl[];
+
+  /**
+   * Extract the chapter metadata from the chapter page html
+   * @param _url The url of the chapter page
+   * @param _html The html of the chapter page
+   */
+  abstract extractChapterContent(_url: NKUrl, _html: string): ChapterContent;
 }
 
 export enum ChapterListPaginationType {
   PAGE = 'page',
-  OFFSET = 'offset',
+  CURSOR = 'cursor',
   NONE = 'none',
 }

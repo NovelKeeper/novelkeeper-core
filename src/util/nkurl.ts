@@ -1,3 +1,5 @@
+import { InvalidUrlException } from '../exception/exception';
+
 export class NKUrl {
   protected _urlStr: string;
   protected _url: URL;
@@ -12,7 +14,11 @@ export class NKUrl {
 
   constructor(url: string) {
     this._urlStr = url;
-    this._url = new URL(url);
+    try {
+      this._url = new URL(url);
+    } catch (e) {
+      throw new InvalidUrlException(`Invalid url: ${url}`);
+    }
   }
 
   /**

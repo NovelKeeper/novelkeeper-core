@@ -4,6 +4,7 @@ import { NovelMetadata } from '../../novel/novel_metadata';
 import { ChapterListPaginationType, NKSource } from '../source';
 import { NKUrl } from '../../../util/nkurl';
 import { ChapterMetadata } from '../../novel/chapter_metadata';
+import { ChapterContent } from '../../novel/chapter_content';
 
 export class NovelFullCom extends NKSource {
   id = 1;
@@ -13,10 +14,7 @@ export class NovelFullCom extends NKSource {
   chapterListPaginationType = ChapterListPaginationType.PAGE;
   chaptersPerPage = 50;
 
-  async extractNovelMetadata(
-    _url: NKUrl,
-    _html: string
-  ): Promise<NovelMetadata> {
+  extractNovelMetadata(_url: NKUrl, _html: string): NovelMetadata {
     const root = parse(_html);
     const title =
       root
@@ -66,16 +64,13 @@ export class NovelFullCom extends NKSource {
     );
   }
 
-  async extractChapterUrls(
-    _url: NKUrl,
-    _html: string
-  ): Promise<ChapterMetadata[]> {
+  extractChapterUrls(_url: NKUrl, _html: string): ChapterMetadata[] {
     const root = parse(_html);
 
     const chapterA = root.querySelectorAll('.list-chapter > li > a');
 
     const chapters = chapterA.map((a) => {
-      const url = _url.noPath() + (a.getAttribute('href') ?? '');
+      const url = new NKUrl(_url.noPath() + (a.getAttribute('href') ?? ''));
       const title = a.text.trim();
       return new ChapterMetadata(url, title);
     });
@@ -83,7 +78,7 @@ export class NovelFullCom extends NKSource {
     return chapters;
   }
 
-  async getChapterListPageUrls(_url: NKUrl, _html: string): Promise<NKUrl[]> {
+  getChapterListPageUrls(_url: NKUrl, _html: string): NKUrl[] {
     const root = parse(_html);
 
     const lastPage = parseInt(
@@ -100,5 +95,15 @@ export class NovelFullCom extends NKSource {
       pageUrls.push(new NKUrl(_url.noParams() + `?page=${i}`));
     }
     return pageUrls;
+  }
+
+  extractChapterContent(_url: NKUrl, _html: string): ChapterContent {
+    const root = parse(_html);
+
+    const content =
+      root.querySelector('#chapter-content')?.removeAttribute('style')
+        ?.innerHTML ?? '';
+
+    return new ChapterContent(_url, content);
   }
 }
