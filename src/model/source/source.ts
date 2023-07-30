@@ -7,12 +7,14 @@ export abstract class NKSource {
    * The name of the source
    */
   abstract name: string;
+  
   /**
-   * The base url of the source
+   * The hostname of the source
    * @example https://novelfull.com
    * @example https://www.wuxiaworld.com
    */
-  abstract baseUrl: string;
+  abstract hostname: string;
+
   /**
    * Whether the chapter list for the source is paginated
    */
