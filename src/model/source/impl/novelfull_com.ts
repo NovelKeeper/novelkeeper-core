@@ -26,15 +26,18 @@ export class NovelFullCom extends NKSource {
       .map((a) => a.text.trim());
 
     const description = root
-      .querySelectorAll('.desc-text > p')
-      .map((p) => p.text.trim());
+      .querySelectorAll('.desc-text > *')
+      .map((p) => p.text.trim())
+      .filter((p) => p !== undefined && p !== '');
 
     const genres = root
       .querySelectorAll('.info > div:nth-child(3) > a')
       .map((a) => a.text.trim());
 
     const coverUrl =
-      root.querySelector('.book > img:nth-child(1)')?.getAttribute('src') ?? '';
+      _url.host() +
+        root.querySelector('.book > img:nth-child(1)')?.getAttribute('src') ??
+      '';
 
     // Alternate titles <>Alternative names: <h3></h3> title1, title2</>
     const altTitles =
