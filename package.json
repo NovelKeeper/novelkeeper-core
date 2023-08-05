@@ -1,15 +1,14 @@
 {
   "name": "novelkeeper-core",
-  "version": "1.0.31",
+  "version": "1.0.32",
   "description": "",
   "author": "John Ramberger",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NovelKeeper/novelkeeper-core.git"
   },
-  "files": [
-    "lib"
-  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test": "echo OK",
     "watch": "npx nodemon",
